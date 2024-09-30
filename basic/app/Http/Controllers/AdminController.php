@@ -8,6 +8,10 @@ use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $students = Student::all();
@@ -24,7 +28,7 @@ class AdminController extends Controller
         return view('form');
     }
 
-    public function insert(Request $request)
+    public function insert(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'name' => 'required',
@@ -39,7 +43,6 @@ class AdminController extends Controller
             'phone.required' => 'Phone is required',
             'address.required' => 'Address is required',
         ]
-
         );
 
         $student = new Student();
@@ -57,9 +60,37 @@ class AdminController extends Controller
         return view('edit', compact('student'));
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $student = Student::find($id);
         $student->delete();
         return redirect()->route('student')->with('success', 'Student deleted successfully');
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+
+        ],
+        [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email is required',
+            'phone.required' => 'Phone is required',
+            'address.required' => 'Address is required',
+        ]
+        );
+
+        $student = Student::find($id);
+        $student->name = $request->name;
+        $student->email = $request->email;
+        $student->phone = $request->phone;
+        $student->address = $request->address;
+        $student->save();
+        return redirect()->route('student')->with('success', 'Student updated successfully');
+    }
+
 }

@@ -3,6 +3,10 @@
   <component name="PHPUnit">
     <option name="directories">
       <list>
+        <option value="$PROJECT_DIR$/middlewarelearn/tests/Unit" />
+        <option value="$PROJECT_DIR$/middlewarelearn/tests/Feature" />
+        <option value="$PROJECT_DIR$/authorizationlearn/tests/Unit" />
+        <option value="$PROJECT_DIR$/authorizationlearn/tests/Feature" />
         <option value="$PROJECT_DIR$/basic/tests/Unit" />
         <option value="$PROJECT_DIR$/basic/tests/Feature" />
       </list>

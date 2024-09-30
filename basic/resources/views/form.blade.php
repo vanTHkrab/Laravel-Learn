@@ -1,10 +1,10 @@
-@extends('layout')
+@extends('layouts.app')
 @section('title', 'Create Student')
 
 @section('content')
     <div class="row justify-content-center mt-5">
         <div class="col-md-6">
-            <form action="./insert" method="POST">
+            <form action="./insert" method="GET">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Student Name</label>
@@ -30,6 +30,13 @@
                     @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label for="address" class="form-label">Student Address</label>
+                    <textarea name="address" class="form-control" id="address" placeholder="Enter student address"></textarea>
+                    @error('address')
+                    <span class="text text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
                 <button type="submit" class="btn btn-primary w-100">Submit</button>
             </form>
         </div>
